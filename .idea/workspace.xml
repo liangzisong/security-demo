@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bdab362a-d5c2-44f6-9c9f-b02a24376dec" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/dto/FileInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/exception/UserNotExistException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/aspect/TimeAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/controller/1566811050009.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/controller/ControllerExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/controller/FileController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/filter/TimeFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/interceptor/TimeInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/resources/resources/demo-binding.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/resources/resources/demo-signIn.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/resources/resources/demo-signUp.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/resources/resources/error/404.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/resources/resources/error/500.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/one-demo/src/main/resources/resources/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/security-browser/src/main/java/com/liangzisong/security/brower/BrowserSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/one-demo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/one-demo/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/one-demo/src/test/java/com/liangzisong/web/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/one-demo/src/test/java/com/liangzisong/web/controller/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/one-demo/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/one-demo/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/one-demo/target/classes/com/liangzisong/web/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/one-demo/target/classes/com/liangzisong/web/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/one-demo/target/test-classes/com/liangzisong/web/controller/UserControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/one-demo/target/test-classes/com/liangzisong/web/controller/UserControllerTest.class" afterDir="false" />
-    </list>
+    <list default="true" id="bdab362a-d5c2-44f6-9c9f-b02a24376dec" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/one-demo/target/" />
@@ -494,8 +470,16 @@
       <option name="presentableId" value="Default" />
       <updated>1566790221728</updated>
       <workItem from="1566790226490" duration="962000" />
-      <workItem from="1566800496348" duration="13547000" />
+      <workItem from="1566800496348" duration="13958000" />
     </task>
+    <task id="LOCAL-00001" summary="加入了认证">
+      <created>1566814339969</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1566814339969</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -531,7 +515,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14509000" />
+    <option name="totallyTimeSpent" value="14920000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-549" width="1096" height="1896" extended-state="6" />
@@ -585,6 +569,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="加入了认证" />
+    <option name="LAST_COMMIT_MESSAGE" value="加入了认证" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
