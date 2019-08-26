@@ -1,4 +1,4 @@
-package com.liangzisong.web.controller;//
+package com.liangzisong.exception;//
 //
 //
 //
@@ -37,76 +37,31 @@ package com.liangzisong.web.controller;//
 //
 
 
-import com.liangzisong.dto.User;
-import com.liangzisong.dto.UserQueryCondition;
-import com.liangzisong.exception.UserNotExistException;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.codehaus.jackson.map.annotate.JsonView;
-import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: UserController
+ * FileName: UserNotExistException
  * <p>
- * Description: 用户controller
+ * Description:
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/26 14:30
+ * @create 2019/8/26 16:26
  */
-@RestController
-@RequestMapping("user")
-public class UserController {
+public class UserNotExistException extends RuntimeException {
 
-    @GetMapping
-    @JsonView({User.UserSimpleView.class})
-    public List<User> query(UserQueryCondition condition){
-        System.out.println(ReflectionToStringBuilder.toString(condition, ToStringStyle.MULTI_LINE_STYLE));
-        List<User> list = new ArrayList<>();
-        list.add(new User());
-        list.add(new User());
-        list.add(new User());
+    private String id;
 
-        return list;
+    public UserNotExistException(String id) {
+        super("user not exist");
+        this.id = id;
     }
 
-
-    @GetMapping("{id:\\d+}")
-    @JsonView({User.UserDetailView.class})
-    public User getInfo(@PathVariable String id){
-        System.out.println("id = " + id);
-        User user = new User();
-        user.setUsername("tom");
-        return user ;
+    public String getId() {
+        return id;
     }
 
-    @PostMapping
-    public User createUser(@Validated @RequestBody User user){
-        System.out.println("user = " + user);
-        user.setId("1");
-        return user;
+    public void setId(String id) {
+        this.id = id;
     }
-
-    @PutMapping("{id:\\d+}")
-    public User updateUser(@RequestBody User user){
-        user.setId("1");
-        return user ;
-    }
-
-    @DeleteMapping("{id:\\d+}")
-    public void delete(@PathVariable String id){
-        System.out.println("id = " + id);
-    }
-
-
-
 }

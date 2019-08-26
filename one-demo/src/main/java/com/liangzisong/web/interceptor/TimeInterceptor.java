@@ -1,4 +1,4 @@
-package com.liangzisong.web.controller;//
+package com.liangzisong.web.interceptor;//
 //
 //
 //
@@ -37,76 +37,61 @@ package com.liangzisong.web.controller;//
 //
 
 
-import com.liangzisong.dto.User;
-import com.liangzisong.dto.UserQueryCondition;
-import com.liangzisong.exception.UserNotExistException;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.codehaus.jackson.map.annotate.JsonView;
-import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: UserController
+ * FileName: TimeInterceptor
  * <p>
- * Description: 用户controller
+ * Description:  切面
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/26 14:30
+ * @create 2019/8/26 17:02
  */
-@RestController
-@RequestMapping("user")
-public class UserController {
+@Component
+public class TimeInterceptor implements HandlerInterceptor {
 
-    @GetMapping
-    @JsonView({User.UserSimpleView.class})
-    public List<User> query(UserQueryCondition condition){
-        System.out.println(ReflectionToStringBuilder.toString(condition, ToStringStyle.MULTI_LINE_STYLE));
-        List<User> list = new ArrayList<>();
-        list.add(new User());
-        list.add(new User());
-        list.add(new User());
+    /**
+     *    前
+     */
+    @Override
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
+        System.out.println("preHandle");
 
-        return list;
+        System.out.println(((HandlerMethod)handler).getBean().getClass().getName());
+        System.out.println(((HandlerMethod)handler).getMethod().getName());
+
+        httpServletRequest.setAttribute("startTime", System.currentTimeMillis());
+        return true;
     }
 
-
-    @GetMapping("{id:\\d+}")
-    @JsonView({User.UserDetailView.class})
-    public User getInfo(@PathVariable String id){
-        System.out.println("id = " + id);
-        User user = new User();
-        user.setUsername("tom");
-        return user ;
+    /**
+     *    后
+     */
+    @Override
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("postHandle");
+        Long start = (Long) httpServletRequest.getAttribute("startTime");
+        System.out.println("time interceptor 耗时:"+ (System.currentTimeMillis() - start));
     }
 
-    @PostMapping
-    public User createUser(@Validated @RequestBody User user){
-        System.out.println("user = " + user);
-        user.setId("1");
-        return user;
+    /**
+     *     异常
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler, Exception e) throws Exception {
+        System.out.println("afterCompletion");
+        Long start = (Long) httpServletRequest.getAttribute("startTime");
+        System.out.println("time interceptor 耗时:"+ (System.currentTimeMillis() - start));
+        System.out.println("ex is "+e);
     }
-
-    @PutMapping("{id:\\d+}")
-    public User updateUser(@RequestBody User user){
-        user.setId("1");
-        return user ;
-    }
-
-    @DeleteMapping("{id:\\d+}")
-    public void delete(@PathVariable String id){
-        System.out.println("id = " + id);
-    }
-
-
-
 }
