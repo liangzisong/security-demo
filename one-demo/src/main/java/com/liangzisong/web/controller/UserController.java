@@ -44,6 +44,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.codehaus.jackson.map.annotate.JsonView;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +70,13 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 public class UserController {
+
+
+    @GetMapping("/me")
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails userDetails){
+
+        return userDetails;
+    }
 
     @GetMapping
     @JsonView({User.UserSimpleView.class})

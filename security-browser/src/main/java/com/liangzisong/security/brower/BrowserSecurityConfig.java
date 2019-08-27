@@ -37,8 +37,17 @@ package com.liangzisong.security.brower;//
 //
 
 
+import com.liangzisong.security.brower.authentication.ImoocAuthenctiationFailureHandler;
+import com.liangzisong.security.brower.authentication.ImoocAuthenticationSuccessHandler;
+import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.validate.code.ValidateCodeFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 /**
@@ -55,18 +64,62 @@ import org.springframework.stereotype.Component;
 @Component
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
+    @Autowired
+    private ImoocAuthenctiationFailureHandler imoocAuthenctiationFailureHandler;
+
+    @Autowired
+    private ImoocAuthenticationSuccessHandler imoocAuthenticationSuccessHandler;
+
+    @Bean
+    public PasswordEncoder  passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //指定表单登录
-        http.formLogin()
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler(imoocAuthenctiationFailureHandler);
+        validateCodeFilter.setSecurityProperties(securityProperties);
+        //设置验证路径
+        validateCodeFilter.afterPropertiesSet();
+
+        http
+                //添加验证码过滤器 放在表单登录前面
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                //指定表单登录
+                .formLogin()
         //指定httpBasic登录
         //http.httpBasic()
-                //对请求授权
+                //指定登录页面
+                .loginPage("/authentication/require")
+                //指定登录请求的地址  默认会走login 这里修改一下
+                .loginProcessingUrl("/authentication/form")
+                //自定义成功处理器
+                .successHandler(imoocAuthenticationSuccessHandler)
+                //自定义失败处理器
+                .failureHandler(imoocAuthenctiationFailureHandler)
+              //对请求授权
                 .and().authorizeRequests()
+                //当访问下面的登录页面不需要认证
+                .antMatchers(
+                        //配置登录页面不需要权限认证
+                        //登录认证转发
+                        "/authentication/require",
+                        //登录页面
+                        securityProperties.getBrowser().getLoginPage(),
+                        //图片验证码
+                        "/code/image"
+                ).permitAll()
                 //任何请求
                 .anyRequest()
                 //都需要身份认证
-                .authenticated();
+                .authenticated()
+                //暂时把csrf 忽略掉
+                .and().csrf().disable();
 
     }
 }
