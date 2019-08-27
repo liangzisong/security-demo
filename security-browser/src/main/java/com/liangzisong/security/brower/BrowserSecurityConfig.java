@@ -45,10 +45,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.stereotype.Component;
+
+import javax.sql.DataSource;
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
@@ -73,9 +79,22 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ImoocAuthenticationSuccessHandler imoocAuthenticationSuccessHandler;
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Bean
     public PasswordEncoder  passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+//        tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
     }
 
 
@@ -102,6 +121,14 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(imoocAuthenticationSuccessHandler)
                 //自定义失败处理器
                 .failureHandler(imoocAuthenctiationFailureHandler)
+                //记住我
+                .and().rememberMe()
+                //设置 persistentTokenRepository 的实现
+                .tokenRepository(persistentTokenRepository())
+                //设置过期的秒数
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                //添加userDetailsService
+                .userDetailsService(userDetailsService)
               //对请求授权
                 .and().authorizeRequests()
                 //当访问下面的登录页面不需要认证

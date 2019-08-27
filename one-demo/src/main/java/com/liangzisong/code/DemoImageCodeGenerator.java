@@ -57,7 +57,7 @@ import java.time.LocalDateTime;
  * @version 1.0.0
  * @create 2019/8/27 17:45
  */
-@Component("imageCodeGenerator")
+//@Component("imageCodeGenerator")
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
 
     Logger logger = LoggerFactory.getLogger(getClass());

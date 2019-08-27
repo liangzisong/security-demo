@@ -91,10 +91,13 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
         String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getValidateCodeProperties().getImageCodeProperties().getUrls(), ",");
-        //把需要过滤的路径放入set集合里
-        for (String configUrl : configUrls) {
-            urlSet.add(configUrl);
+        if(configUrls!=null && configUrls.length>0){
+            //把需要过滤的路径放入set集合里
+            for (String configUrl : configUrls) {
+                urlSet.add(configUrl);
+            }
         }
+
 
         //登录路径是肯定要输入图形验证码的
         urlSet.add("/authentication/form");

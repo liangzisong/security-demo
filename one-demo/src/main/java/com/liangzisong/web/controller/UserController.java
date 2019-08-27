@@ -92,7 +92,7 @@ public class UserController {
 
 
     @GetMapping("{id:\\d+}")
-    @JsonView({User.UserDetailView.class})
+    @JsonView( {User.UserDetailView.class})
     public User getInfo(@PathVariable String id){
         System.out.println("id = " + id);
         User user = new User();
