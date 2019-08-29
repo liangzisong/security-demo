@@ -51,13 +51,9 @@ import java.time.LocalDateTime;
  * @version 1.0.0
  * @create 2019/8/27 11:42
  */
-public class ImageCode {
+public class ImageCode extends ValidateCode {
 
     private BufferedImage image;
-
-    private String code;
-
-    private LocalDateTime expireTime;
 
     /***
      *
@@ -66,9 +62,8 @@ public class ImageCode {
      * @param expireIn 多少秒之后过期
      */
     public ImageCode(BufferedImage image, String code, int expireIn) {
+        super(code,expireIn);
         this.image = image;
-        this.code = code;
-        this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
     }
 
     /***
@@ -78,18 +73,10 @@ public class ImageCode {
      * @param expireTime 超时时间
      */
     public ImageCode(BufferedImage image, String code, LocalDateTime expireTime) {
+        super(code,expireTime);
         this.image = image;
-        this.code = code;
-        this.expireTime = expireTime;
     }
 
-    /***
-     * 判断验证码是否过期
-     * @return 过期返回true
-     */
-    public boolean isExpried(){
-        return LocalDateTime.now().isAfter(this.expireTime);
-    }
 
     public BufferedImage getImage() {
         return image;
@@ -99,28 +86,4 @@ public class ImageCode {
         this.image = image;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public LocalDateTime getExpireTime() {
-        return expireTime;
-    }
-
-    public void setExpireTime(LocalDateTime expireTime) {
-        this.expireTime = expireTime;
-    }
-
-    @Override
-    public String toString() {
-        return "ImageCode{" +
-                "image=" + image +
-                ", code='" + code + '\'' +
-                ", expireTime=" + expireTime +
-                '}';
-    }
 }

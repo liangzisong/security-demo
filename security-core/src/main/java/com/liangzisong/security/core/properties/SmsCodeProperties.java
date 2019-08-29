@@ -1,4 +1,4 @@
-package com.liangzisong.code;//
+package com.liangzisong.security.core.properties;//
 //
 //
 //
@@ -37,34 +37,46 @@ package com.liangzisong.code;//
 //
 
 
-import com.liangzisong.security.core.validate.code.ImageCode;
-import com.liangzisong.security.core.validate.code.ValidateCodeGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.ServletWebRequest;
-
-import java.time.LocalDateTime;
-
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: DemoImageCodeGenerator
+ * FileName: SmsCodeProperties
  * <p>
  * Description:
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 17:45
+ * @create 2019/8/28 16:33
  */
-//@Component("imageCodeGenerator")
-public class DemoImageCodeGenerator implements ValidateCodeGenerator {
+public class SmsCodeProperties {
 
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private int length = 6;
 
-    @Override
-    public ImageCode generate(ServletWebRequest request) {
-        logger.info("另一个验证码");
-        return null;
+    private int expireIn = 60;
+
+    private String urls;
+
+    public String getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String urls) {
+        this.urls = urls;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getExpireIn() {
+        return expireIn;
+    }
+
+    public void setExpireIn(int expireIn) {
+        this.expireIn = expireIn;
     }
 }

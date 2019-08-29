@@ -38,6 +38,8 @@ package com.liangzisong.security.core.validate.code;//
 
 
 import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.validate.code.sms.DefaultSmsCodeSender;
+import com.liangzisong.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -64,6 +66,7 @@ public class ValidateCodeBeanConfig {
 
     /**
      *    跟在ImageCodeGenerator上面写一个@Component注解是一样的
+     *    这样写的原因是 如果有别的类实现了imageCodeGenerator会优先使用别的类的
      *
      */
     @Bean
@@ -74,4 +77,14 @@ public class ValidateCodeBeanConfig {
         return imageCodeGenerator;
     }
 
+    /**
+     *    跟在SmsCodeSender上面写一个@Component注解是一样的
+     *    这样写的原因是 如果有别的类实现了SmsCodeSender会优先使用别的类的
+     *
+     */
+    @Bean
+    @ConditionalOnMissingBean(SmsCodeSender.class)
+    public SmsCodeSender smsCodeGenerator(){
+        return new DefaultSmsCodeSender();
+    }
 }

@@ -1,4 +1,4 @@
-package com.liangzisong.code;//
+package com.liangzisong.security.core.validate.code;//
 //
 //
 //
@@ -37,34 +37,51 @@ package com.liangzisong.code;//
 //
 
 
-import com.liangzisong.security.core.validate.code.ImageCode;
-import com.liangzisong.security.core.validate.code.ValidateCodeGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.liangzisong.security.core.properties.ImageCodeProperties;
+import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.properties.SmsCodeProperties;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import java.time.LocalDateTime;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: DemoImageCodeGenerator
+ * FileName: ImageCodeGenerator
  * <p>
  * Description:
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 17:45
+ * @create 2019/8/27 17:25
  */
-//@Component("imageCodeGenerator")
-public class DemoImageCodeGenerator implements ValidateCodeGenerator {
+@Component
+public class SmsCodeGenerator implements ValidateCodeGenerator {
 
-    Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private SecurityProperties securityProperties;
 
     @Override
-    public ImageCode generate(ServletWebRequest request) {
-        logger.info("另一个验证码");
-        return null;
+    public ValidateCode generate(ServletWebRequest request) {
+        SmsCodeProperties smsCodeProperties = securityProperties.getValidateCodeProperties().getSmsCodeProperties();
+        String randomNumeric = RandomStringUtils.randomNumeric(smsCodeProperties.getLength());
+        return new ValidateCode(randomNumeric,smsCodeProperties.getExpireIn());
+    }
+
+
+
+    public SecurityProperties getSecurityProperties() {
+        return securityProperties;
+    }
+
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
     }
 }

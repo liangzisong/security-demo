@@ -37,11 +37,13 @@ package com.liangzisong.security.core.validate.code;//
 //
 
 
-import com.liangzisong.security.core.properties.ImageCodeProperties;
 import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.validate.code.sms.SmsCodeSender;
+import org.bouncycastle.math.raw.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,11 +52,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
@@ -80,17 +78,29 @@ public class ValidateCodeController {
     @Autowired
     private ValidateCodeGenerator imageCodeGenerator;
 
+    @Autowired
+    private ValidateCodeGenerator smsCodeGenerator;
+
+    @Autowired
+    private SmsCodeSender smsCodeSender;
+
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = createImgageCode(new ServletWebRequest(request));
+        //生成验证码
+        ImageCode imageCode = (ImageCode) imageCodeGenerator.generate(new ServletWebRequest(request));
         sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
         ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
     }
 
-    private ImageCode createImgageCode(ServletWebRequest request) {
-        return imageCodeGenerator.getImageCode(request);
+
+    @GetMapping("/code/sms")
+    public void createSms(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
+        //生成验证码
+        ValidateCode smsCode = smsCodeGenerator.generate(new ServletWebRequest(request));
+        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY+"SMS",smsCode);
+        //封装短信验证码发送的接口  各厂商可以替换
+        String moblie = ServletRequestUtils.getStringParameter(request, "mobile");
+        smsCodeSender.send(moblie,smsCode.getCode());
     }
-
-
 
 }

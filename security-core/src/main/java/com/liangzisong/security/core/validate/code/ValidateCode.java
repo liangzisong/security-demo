@@ -1,4 +1,4 @@
-package com.liangzisong.code;//
+package com.liangzisong.security.core.validate.code;//
 //
 //
 //
@@ -37,34 +37,68 @@ package com.liangzisong.code;//
 //
 
 
-import com.liangzisong.security.core.validate.code.ImageCode;
-import com.liangzisong.security.core.validate.code.ValidateCodeGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.ServletWebRequest;
-
+import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: DemoImageCodeGenerator
+ * FileName: ImageCode
  * <p>
- * Description:
+ * Description: 图形验证码
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 17:45
+ * @create 2019/8/27 11:42
  */
-//@Component("imageCodeGenerator")
-public class DemoImageCodeGenerator implements ValidateCodeGenerator {
+public class ValidateCode {
 
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private String code;
 
-    @Override
-    public ImageCode generate(ServletWebRequest request) {
-        logger.info("另一个验证码");
-        return null;
+    private LocalDateTime expireTime;
+
+    /***
+     *
+     * @param code
+     * @param expireIn 多少秒之后过期
+     */
+    public ValidateCode(String code, int expireIn) {
+        this.code = code;
+        this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
     }
+
+    /***
+     *
+     * @param code 验证码
+     * @param expireTime 超时时间
+     */
+    public ValidateCode(String code, LocalDateTime expireTime) {
+        this.code = code;
+        this.expireTime = expireTime;
+    }
+
+    /***
+     * 判断验证码是否过期
+     * @return 过期返回true
+     */
+    public boolean isExpried(){
+        return LocalDateTime.now().isAfter(this.expireTime);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public LocalDateTime getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(LocalDateTime expireTime) {
+        this.expireTime = expireTime;
+    }
+
 }

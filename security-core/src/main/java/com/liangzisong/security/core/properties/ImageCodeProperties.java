@@ -48,17 +48,15 @@ package com.liangzisong.security.core.properties;//
  * @version 1.0.0
  * @create 2019/8/27 15:52
  */
-public class ImageCodeProperties {
+public class ImageCodeProperties extends SmsCodeProperties {
 
     private int width = 67;
 
     private int height = 80;
 
-    private int length = 4;
-
-    private int expireIn = 60;
-
-    private String urls;
+    public ImageCodeProperties() {
+        setLength(4);
+    }
 
     public int getWidth() {
         return width;
@@ -74,29 +72,5 @@ public class ImageCodeProperties {
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getExpireIn() {
-        return expireIn;
-    }
-
-    public void setExpireIn(int expireIn) {
-        this.expireIn = expireIn;
-    }
-
-    public String getUrls() {
-        return urls;
-    }
-
-    public void setUrls(String urls) {
-        this.urls = urls;
     }
 }

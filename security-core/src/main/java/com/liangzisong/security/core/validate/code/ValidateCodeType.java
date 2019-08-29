@@ -1,4 +1,4 @@
-package com.liangzisong.code;//
+package com.liangzisong.security.core.validate.code;//
 //
 //
 //
@@ -37,34 +37,42 @@ package com.liangzisong.code;//
 //
 
 
-import com.liangzisong.security.core.validate.code.ImageCode;
-import com.liangzisong.security.core.validate.code.ValidateCodeGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.ServletWebRequest;
-
-import java.time.LocalDateTime;
+import com.liangzisong.security.core.properties.SecurityConstants;
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: DemoImageCodeGenerator
+ * FileName: ValidateCodeType
  * <p>
  * Description:
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 17:45
+ * @create 2019/8/28 17:17
  */
-//@Component("imageCodeGenerator")
-public class DemoImageCodeGenerator implements ValidateCodeGenerator {
+public enum  ValidateCodeType {
+    /**
+     * 短信验证码
+     */
+    SMS {
+        @Override
+        public String getParamNameOnValidate() {
+            return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS;
+        }
+    },
+    /**
+     * 图片验证码
+     */
+    IMAGE {
+        @Override
+        public String getParamNameOnValidate() {
+            return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_IMAGE;
+        }
+    };
 
-    Logger logger = LoggerFactory.getLogger(getClass());
-
-    @Override
-    public ImageCode generate(ServletWebRequest request) {
-        logger.info("另一个验证码");
-        return null;
-    }
+    /**
+     * 校验时从请求中获取的参数的名字
+     * @return
+     */
+    public abstract String getParamNameOnValidate();
 }
