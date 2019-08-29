@@ -39,10 +39,13 @@ package com.liangzisong.security.brower;//
 
 import com.liangzisong.security.brower.authentication.ImoocAuthenctiationFailureHandler;
 import com.liangzisong.security.brower.authentication.ImoocAuthenticationSuccessHandler;
+import com.liangzisong.security.core.authentication.AbstractChannelSecurityConfig;
 import com.liangzisong.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.liangzisong.security.core.properties.SecurityConstants;
 import com.liangzisong.security.core.properties.SecurityProperties;
 import com.liangzisong.security.core.validate.code.SmsCodeFilter;
 import com.liangzisong.security.core.validate.code.ValidateCodeFilter;
+import com.liangzisong.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -70,7 +73,7 @@ import javax.sql.DataSource;
  * @create 2019/8/26 17:27
  */
 @Component
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -90,6 +93,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
     @Bean
     public PasswordEncoder  passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -105,37 +111,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(imoocAuthenctiationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        //设置验证路径
-        validateCodeFilter.afterPropertiesSet();
 
-
-        SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
-        smsCodeFilter.setAuthenticationFailureHandler(imoocAuthenctiationFailureHandler);
-        smsCodeFilter.setSecurityProperties(securityProperties);
-        //设置验证路径
-        smsCodeFilter.afterPropertiesSet();
+        applyPasswordAuthenticationConfig(http);
 
 
         http
-                //添加短信验证码码过滤器 放在表单登录前面
-                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                //添加图形验证码过滤器 放在表单登录前面
-                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                //指定表单登录
-                .formLogin()
-        //指定httpBasic登录
-        //http.httpBasic()
-                //指定登录页面
-                .loginPage("/authentication/require")
-                //指定登录请求的地址  默认会走login 这里修改一下
-                .loginProcessingUrl("/authentication/form")
-                //自定义成功处理器
-                .successHandler(imoocAuthenticationSuccessHandler)
-                //自定义失败处理器
-                .failureHandler(imoocAuthenctiationFailureHandler)
+                //图形验证码
+                .apply(validateCodeSecurityConfig)
+                //短信
+                .and().apply(smsCodeAuthenticationSecurityConfig)
                 //记住我
                 .and().rememberMe()
                 //设置 persistentTokenRepository 的实现
@@ -144,26 +128,67 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 //添加userDetailsService
                 .userDetailsService(userDetailsService)
-              //对请求授权
+                //对请求授权
                 .and().authorizeRequests()
                 //当访问下面的登录页面不需要认证
                 .antMatchers(
-                        //配置登录页面不需要权限认证
-                        //登录认证转发
-                        "/authentication/require",
-                        //登录页面
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
-                        //图片验证码
-                        "/code/*"
-                ).permitAll()
-                //任何请求
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*"
+                )
+                //任何请求 都需要身份认证
+                .permitAll()
                 .anyRequest()
-                //都需要身份认证
                 .authenticated()
                 //暂时把csrf 忽略掉
-                .and().csrf().disable()
-                //相当于把smsCodeAuthenticationSecurityConfig内configure方法的配置加载后面了   等于接着往下写了这一段配置
-                .apply(smsCodeAuthenticationSecurityConfig);
+                .and().csrf().disable();
+
+//        http
+//                //添加短信验证码码过滤器 放在表单登录前面
+//                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+//                //添加图形验证码过滤器 放在表单登录前面
+//                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+//                //指定表单登录
+//                .formLogin()
+//        //指定httpBasic登录
+//        //http.httpBasic()
+//                //指定登录页面
+//                .loginPage("/authentication/require")
+//                //指定登录请求的地址  默认会走login 这里修改一下
+//                .loginProcessingUrl("/authentication/form")
+//                //自定义成功处理器
+//                .successHandler(imoocAuthenticationSuccessHandler)
+//                //自定义失败处理器
+//                .failureHandler(imoocAuthenctiationFailureHandler)
+//                //记住我
+//                .and().rememberMe()
+//                //设置 persistentTokenRepository 的实现
+//                .tokenRepository(persistentTokenRepository())
+//                //设置过期的秒数
+//                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+//                //添加userDetailsService
+//                .userDetailsService(userDetailsService)
+//              //对请求授权
+//                .and().authorizeRequests()
+//                //当访问下面的登录页面不需要认证
+//                .antMatchers(
+//                        //配置登录页面不需要权限认证
+//                        //登录认证转发
+//                        "/authentication/require",
+//                        //登录页面
+//                        securityProperties.getBrowser().getLoginPage(),
+//                        //图片验证码
+//                        "/code/*"
+//                ).permitAll()
+//                //任何请求
+//                .anyRequest()
+//                //都需要身份认证
+//                .authenticated()
+//                //暂时把csrf 忽略掉
+//                .and().csrf().disable()
+//                //相当于把smsCodeAuthenticationSecurityConfig内configure方法的配置加载后面了   等于接着往下写了这一段配置
+//                .apply(smsCodeAuthenticationSecurityConfig);
 
     }
 }

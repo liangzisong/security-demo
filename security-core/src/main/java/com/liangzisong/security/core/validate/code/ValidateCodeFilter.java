@@ -37,11 +37,11 @@ package com.liangzisong.security.core.validate.code;//
 //
 
 
+import com.liangzisong.security.core.properties.SecurityConstants;
 import com.liangzisong.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -57,7 +57,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -77,58 +79,85 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
 
+    /*系统配置*/
+    @Autowired
+    private SecurityProperties securityProperties;
+
+    /*系统中的校验码处理器*/
+    @Autowired
+    private ValidateCodeProcessorHolder validateCodeProcessorHolder;
+
+    /*存放所有需要校验验证码的url*/
+    private Map<String, ValidateCodeType> urlMap = new HashMap<>();
+
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     //图片验证码过滤集合
     private Set<String> urlSet = new HashSet<>();
 
-    @Autowired
-    private SecurityProperties securityProperties;
-
+    /*验证请求url与配置url是否匹配的工具类*/
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
+    /*初始化要拦截url配置信息*/
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getValidateCodeProperties().getImageCodeProperties().getUrls(), ",");
-        if(configUrls!=null && configUrls.length>0){
-            //把需要过滤的路径放入set集合里
-            for (String configUrl : configUrls) {
-                urlSet.add(configUrl);
+
+        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
+        addUrlToMap(securityProperties.getValidateCodeProperties().getImageCodeProperties().getUrls(), ValidateCodeType.IMAGE);
+
+        urlMap.put(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE, ValidateCodeType.SMS);
+        addUrlToMap(securityProperties.getValidateCodeProperties().getImageCodeProperties().getUrls(), ValidateCodeType.SMS);
+
+    }
+
+    protected void addUrlToMap(String urlString,ValidateCodeType type){
+        if (StringUtils.isNotBlank(urlString)) {
+            String[] urls = StringUtils.splitByWholeSeparatorPreserveAllTokens(urlString, ",");
+            for (String url : urls) {
+                urlMap.put(url, type);
             }
         }
-
-
-        //登录路径是肯定要输入图形验证码的
-        urlSet.add("/authentication/form");
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        boolean action = false;
-        for (String url : urlSet) {
-            //如果对应上说明这个路径需要拦截
-            if (antPathMatcher.match(url,request.getRequestURI())){
-                action = true;
-            }
-        }
 
-        if (
-                action
-//                StringUtils.equals("/authentication/form", request.getRequestURI())
-//                        && StringUtils.equalsIgnoreCase("post", request.getMethod())
-        ) {
-            try {
-                //验证 验证码是否正确
-                validate(new ServletWebRequest(request));
-            }catch (ValidateCodeException e){
-                authenticationFailureHandler.onAuthenticationFailure(request, response, e);
-                return;
-            }
+        ValidateCodeType type = getValidateCodeType(request);
+
+        if (type != null){
+            logger.info("校验请求（"+request.getRequestURI()+"）中的验证码，验证码类型"+type);
+        }
+        try {
+            validateCodeProcessorHolder.findValidateCodeProcessor(type)
+            .validate(new ServletWebRequest(request,response));
+            logger.info("验证码效验通过");
+        }catch (ValidateCodeException e){
+            authenticationFailureHandler.onAuthenticationFailure(request, response, e);
+            return;
         }
 
         //如果不是登录请求就直接放过去
         filterChain.doFilter(request,response);
+    }
+
+    /**
+     * 获取校验码类型，如果当前请求不需要效验则返回null
+     * @param request
+     * @return
+     */
+    private ValidateCodeType getValidateCodeType(HttpServletRequest request) {
+        ValidateCodeType result = null;
+        if (!StringUtils.equalsIgnoreCase(request.getMethod(), "get")) {
+            Set<String> urls = urlMap.keySet();
+            for (String url : urls) {
+                if (antPathMatcher.match(url, request.getRequestURI())) {
+                    result = urlMap.get(url);
+                }
+            }
+        }
+        return result;
     }
 
     /***
