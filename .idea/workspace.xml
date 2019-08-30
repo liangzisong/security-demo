@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bdab362a-d5c2-44f6-9c9f-b02a24376dec" name="Default Changelist" comment="">
+    <list default="true" id="bdab362a-d5c2-44f6-9c9f-b02a24376dec" name="Default Changelist" comment="同步代码-1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -35,10 +35,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/security-browser/src/main/java/com/liangzisong/security/brower/BrowserSecurityConfig.java">
+        <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/mobile/SmsCodeAuthenticationSecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="93" column="38" selection-start-line="93" selection-start-column="38" selection-end-line="93" selection-end-column="38" />
+            <state relative-caret-position="641">
+              <caret line="92" column="32" lean-forward="true" selection-start-line="92" selection-start-column="32" selection-end-line="92" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,13 +47,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/mobile/SmsCodeAuthenticationSecurityConfig.java">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="273">
+              <caret line="19" column="5" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -61,7 +58,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeSecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
+            <state relative-caret-position="1113">
               <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
             </state>
           </provider>
@@ -70,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/4.2.3.RELEASE/spring-security-web-4.2.3.RELEASE-sources.jar!/org/springframework/security/web/authentication/preauth/AbstractPreAuthenticatedProcessingFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="903">
               <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
             </state>
           </provider>
@@ -88,7 +85,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-26">
+            <state relative-caret-position="1113">
               <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -100,7 +97,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/AbstractChannelSecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
+            <state relative-caret-position="1260">
               <caret line="65" column="19" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -112,7 +109,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/properties/SmsCodeProperties.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
+            <state relative-caret-position="1050">
               <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
               <folding>
                 <element signature="e#2011#2012#0" expanded="true" />
@@ -127,7 +124,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeProcessorHolder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1051">
+            <state relative-caret-position="1218">
               <caret line="61" column="23" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -216,13 +213,13 @@
         <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/SmsCodeFilter.java" />
         <option value="$PROJECT_DIR$/security-browser/src/main/java/com/liangzisong/security/brower/authentication/ImoocAuthenctiationFailureHandler.java" />
         <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/mobile/SmsCodeAuthenticationSecurtyConfig.java" />
-        <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/mobile/SmsCodeAuthenticationSecurityConfig.java" />
         <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeController.java" />
         <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/AbstractChannelSecurityConfig.java" />
         <option value="$PROJECT_DIR$/security-browser/src/main/java/com/liangzisong/security/brower/BrowserSecurityConfig.java" />
         <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeSecurityConfig.java" />
         <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeProcessorHolder.java" />
         <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeFilter.java" />
+        <option value="$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/mobile/SmsCodeAuthenticationSecurityConfig.java" />
       </list>
     </option>
   </component>
@@ -262,10 +259,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="-549" />
-    <option name="width" value="1096" />
-    <option name="height" value="1896" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -275,282 +272,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="exception" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="aspect" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="filter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="liangzisong" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="interceptor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="one-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-browser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-browser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-browser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-browser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-browser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="brower" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-browser" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="brower" type="462c0819:PsiDirectoryNode" />
-              <item name="authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="properties" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="security-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="security-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="security-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="sms" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -725,7 +454,8 @@
       <workItem from="1566866261702" duration="32918000" />
       <workItem from="1566977614634" duration="5991000" />
       <workItem from="1566983726636" duration="2971000" />
-      <workItem from="1567051793726" duration="10947000" />
+      <workItem from="1567051793726" duration="10990000" />
+      <workItem from="1567126317436" duration="243000" />
     </task>
     <task id="LOCAL-00001" summary="加入了认证">
       <created>1566814339969</created>
@@ -769,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567070981132</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="同步代码">
+      <created>1567073379679</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1567073379679</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -805,10 +542,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67825000" />
+    <option name="totallyTimeSpent" value="68111000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-549" width="1096" height="1896" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Structure" order="0" sideWeight="0.40677965" side_tool="true" weight="0.38185653" />
       <window_info id="Designer" order="1" />
@@ -817,22 +554,22 @@
       <window_info id="Favorites" order="4" sideWeight="0.40677965" side_tool="true" weight="0.38185653" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Web" order="6" sideWeight="0.40677965" side_tool="true" weight="0.38185653" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.59322035" visible="true" weight="0.29576108" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.59322035" visible="true" weight="0.16347177" />
       <window_info anchor="bottom" id="Database Console" order="0" sideWeight="0.49946752" weight="0.44407532" />
       <window_info anchor="bottom" id="REST Client" order="1" weight="0.43964562" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" />
-      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.7033534" visible="true" weight="0.46499416" />
+      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.7033534" weight="0.46499416" />
       <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.7257384" weight="0.9382716" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" />
       <window_info anchor="bottom" id="Spring" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32925472" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.2742616" side_tool="true" weight="0.44151565" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32937366" />
-      <window_info anchor="bottom" id="Version Control" order="14" sideWeight="0.49840257" weight="0.43530765" />
+      <window_info anchor="bottom" id="Version Control" order="14" sideWeight="0.49840257" weight="0.93890023" />
       <window_info anchor="bottom" id="Application Servers" order="15" weight="0.32890365" />
       <window_info anchor="bottom" id="Messages" order="16" sideWeight="0.4968051" weight="0.11383538" />
       <window_info anchor="bottom" id="Statistic" order="17" />
@@ -914,7 +651,8 @@
     <MESSAGE value="添加了记住我" />
     <MESSAGE value="手机验证码完了，准备重构" />
     <MESSAGE value="优化代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化代码" />
+    <MESSAGE value="同步代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="同步代码" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -971,13 +709,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/one-demo/src/main/java/com/liangzisong/web/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="75" column="53" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/sms/SmsCodeSender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -1319,43 +1050,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/properties/SmsCodeProperties.java">
+    <entry file="file://$PROJECT_DIR$/security-browser/src/main/java/com/liangzisong/security/brower/BrowserSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
-          <folding>
-            <element signature="e#2011#2012#0" expanded="true" />
-            <element signature="e#2038#2039#0" expanded="true" />
-            <element signature="e#2078#2079#0" expanded="true" />
-            <element signature="e#2110#2111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeProcessorHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1051">
-          <caret line="61" column="23" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
+        <state relative-caret-position="1491">
+          <caret line="93" column="38" selection-start-line="93" selection-start-column="38" selection-end-line="93" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/AbstractChannelSecurityConfig.java">
+    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="65" column="19" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="1113">
+          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/4.2.3.RELEASE/spring-security-web-4.2.3.RELEASE-sources.jar!/org/springframework/security/web/authentication/preauth/AbstractPreAuthenticatedProcessingFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="903">
+          <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1368,7 +1083,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
+        <state relative-caret-position="1113">
           <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1376,37 +1091,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/4.2.3.RELEASE/spring-security-web-4.2.3.RELEASE-sources.jar!/org/springframework/security/web/authentication/preauth/AbstractPreAuthenticatedProcessingFilter.java">
+    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/AbstractChannelSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeSecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/security-browser/src/main/java/com/liangzisong/security/brower/BrowserSecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="93" column="38" selection-start-line="93" selection-start-column="38" selection-end-line="93" selection-end-column="38" />
+        <state relative-caret-position="1260">
+          <caret line="65" column="19" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/properties/SmsCodeProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+          <folding>
+            <element signature="e#2011#2012#0" expanded="true" />
+            <element signature="e#2038#2039#0" expanded="true" />
+            <element signature="e#2078#2079#0" expanded="true" />
+            <element signature="e#2110#2111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeProcessorHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1218">
+          <caret line="61" column="23" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/validate/code/ValidateCodeProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/security-core/src/main/java/com/liangzisong/security/core/authentication/mobile/SmsCodeAuthenticationSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="641">
+          <caret line="92" column="32" lean-forward="true" selection-start-line="92" selection-start-column="32" selection-end-line="92" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="5" />
         </state>
       </provider>
     </entry>
