@@ -38,6 +38,7 @@ package com.liangzisong.security.brower;//
 
 
 import com.liangzisong.security.brower.support.SimpleResponse;
+import com.liangzisong.security.brower.support.SocialUserInfo;
 import com.liangzisong.security.core.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,11 +49,11 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,9 @@ public class BrowserSecurityController {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private ProviderSignInUtils providerSignInUtils;
+
     @RequestMapping("/authentication/require")
     //未授权的状态码
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
@@ -100,6 +104,20 @@ public class BrowserSecurityController {
             }
         }
         return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页面");
+    }
+
+    @GetMapping("/social/user")
+    public SocialUserInfo getSocialUserInfo(HttpServletRequest request){
+        SocialUserInfo userInfo = new SocialUserInfo();
+        //从session里面获取connection
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
+        //设置用户信息
+        userInfo.setProviderId(connection.getKey().getProviderId());
+        userInfo.setProviderUserId(connection.getKey().getProviderUserId());
+        userInfo.setNickName(connection.getDisplayName());
+        userInfo.setHeadImg(connection.getImageUrl());
+        //返回
+        return userInfo;
     }
 
 }

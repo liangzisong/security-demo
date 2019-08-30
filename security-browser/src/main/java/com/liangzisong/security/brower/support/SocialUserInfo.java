@@ -1,4 +1,4 @@
-package com.liangzisong.security.core.properties;//
+package com.liangzisong.security.brower.support;//
 //
 //
 //
@@ -39,56 +39,54 @@ package com.liangzisong.security.core.properties;//
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: BrowserProperties
+ * FileName: SocialUserInfo
  * <p>
- * Description:
+ * Description: 放置
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 10:29
+ * @create 2019/8/30 14:58
  */
-public class BrowserProperties {
+public class SocialUserInfo {
 
-    private String loginPage = "/common-signIn.html";
+    private String providerId;
 
-    private LoginResponseType loginType = LoginResponseType.JSON;
+    private String providerUserId;
 
-    /*记住我的时间*/
-    private int rememberMeSeconds = 3600;
+    private String nickName;
 
-    /*注册页链接*/
-    private String sigUpUrl;
+    private String headImg;
 
-    public String getLoginPage() {
-        return loginPage;
+    public String getProviderId() {
+        return providerId;
     }
 
-    public void setLoginPage(String loginPage) {
-        this.loginPage = loginPage;
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 
-    public LoginResponseType getLoginType() {
-        return loginType;
+    public String getProviderUserId() {
+        return providerUserId;
     }
 
-    public void setLoginType(LoginResponseType loginType) {
-        this.loginType = loginType;
+    public void setProviderUserId(String providerUserId) {
+        this.providerUserId = providerUserId;
     }
 
-    public int getRememberMeSeconds() {
-        return rememberMeSeconds;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setRememberMeSeconds(int rememberMeSeconds) {
-        this.rememberMeSeconds = rememberMeSeconds;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getSigUpUrl() {
-        return sigUpUrl;
+    public String getHeadImg() {
+        return headImg;
     }
 
-    public void setSigUpUrl(String sigUpUrl) {
-        this.sigUpUrl = sigUpUrl;
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
     }
 }

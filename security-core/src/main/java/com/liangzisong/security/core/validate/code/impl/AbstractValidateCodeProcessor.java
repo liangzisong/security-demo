@@ -39,8 +39,10 @@ package com.liangzisong.security.core.validate.code.impl;//
 
 import com.liangzisong.security.core.validate.code.*;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -64,18 +66,18 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * 操作session的工具类
      */
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
-
-    /***
-     * 收集系统中所有的{@link ValidateCodeGenerator} 接口的实现
-     */
-    private Map<String, ValidateCodeGenerator> validateCodeGeneratorMap;
-
     /**
-     *  *@创建人:  如果这段代码非常棒就是梁子松写的
-     * 如果这代码挺差劲那么我也不知道是谁写的
-     *  *@创建时间:  2019/8/28 16:57
-     *  *@描述:  创建校验码
-     * @param request
+     * 收集系统中所有的 {@link ValidateCodeGenerator} 接口的实现。
+     */
+    @Autowired
+    private Map<String, ValidateCodeGenerator> validateCodeGenerators;
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.imooc.security.core.validate.code.ValidateCodeProcessor#create(org.
+     * springframework.web.context.request.ServletWebRequest)
      */
     @Override
     public void create(ServletWebRequest request) throws Exception {
@@ -94,13 +96,12 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     private C generate(ServletWebRequest request) {
         String type = getValidateCodeType(request).toString().toLowerCase();
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
-        ValidateCodeGenerator validateCodeGenerator = validateCodeGeneratorMap.get(generatorName);
+        ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
         if (validateCodeGenerator == null) {
             throw new ValidateCodeException("验证码生成器" + generatorName + "不存在");
         }
         return (C) validateCodeGenerator.generate(request);
     }
-
 
     /**
      * 保存校验码
@@ -138,7 +139,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * @return
      */
     private ValidateCodeType getValidateCodeType(ServletWebRequest request) {
-        String type = StringUtils.substringBefore(request.getRequest().getRequestURI(), "/code/");
+        String type = StringUtils.substringBefore(getClass().getSimpleName(), "CodeProcessor");
         return ValidateCodeType.valueOf(type.toUpperCase());
     }
 
@@ -178,7 +179,5 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         sessionStrategy.removeAttribute(request, sessionKey);
     }
-
-
 
 }

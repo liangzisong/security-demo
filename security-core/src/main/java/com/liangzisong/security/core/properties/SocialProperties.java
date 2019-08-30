@@ -49,6 +49,8 @@ package com.liangzisong.security.core.properties;//
  */
 public class SocialProperties {
 
+    private String filterProcessesUrl = "/auth";
+
     private QQProperties qqProperties = new QQProperties();
 
     public QQProperties getQqProperties() {
@@ -57,5 +59,13 @@ public class SocialProperties {
 
     public void setQqProperties(QQProperties qqProperties) {
         this.qqProperties = qqProperties;
+    }
+
+    public String getFilterProcessesUrl() {
+        return filterProcessesUrl;
+    }
+
+    public void setFilterProcessesUrl(String filterProcessesUrl) {
+        this.filterProcessesUrl = filterProcessesUrl;
     }
 }

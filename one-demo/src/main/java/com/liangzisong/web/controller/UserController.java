@@ -43,15 +43,19 @@ import com.liangzisong.exception.UserNotExistException;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.codehaus.jackson.map.annotate.JsonView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +74,20 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 public class UserController {
+
+    @Autowired
+    private ProviderSignInUtils providerSignInUtils;
+
+    @PostMapping("regist")
+    public void regist(User user, HttpServletRequest request){
+        //注册用户
+        //不管是注册用户还是绑定用户，都会拿到一个用户的唯一标示
+        //这里要换成userid
+        String userId = user.getUsername();
+        //把用户id传给springSocial做一个注册的动作
+        providerSignInUtils.doPostSignUp(userId,new ServletWebRequest(request));
+        return;
+    }
 
 
     @GetMapping("/me")

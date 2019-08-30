@@ -38,6 +38,7 @@ package com.liangzisong.security.core.validate.code;//
 
 
 import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.validate.code.image.ImageCodeGenerator;
 import com.liangzisong.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.liangzisong.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +71,8 @@ public class ValidateCodeBeanConfig {
      *
      */
     @Bean
-    @ConditionalOnMissingBean(name = "imageCodeGenerator")
-    public ValidateCodeGenerator imageCodeGenerator(){
+    @ConditionalOnMissingBean(name = "imageValidateCodeGenerator")
+    public ValidateCodeGenerator imageValidateCodeGenerator(){
         ImageCodeGenerator imageCodeGenerator = new ImageCodeGenerator();
         imageCodeGenerator.setSecurityProperties(securityProperties);
         return imageCodeGenerator;

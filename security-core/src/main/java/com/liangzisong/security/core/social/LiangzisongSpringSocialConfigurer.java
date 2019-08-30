@@ -1,4 +1,4 @@
-package com.liangzisong.security.core.properties;//
+package com.liangzisong.security.core.social;//
 //
 //
 //
@@ -37,58 +37,41 @@ package com.liangzisong.security.core.properties;//
 //
 
 
+import org.springframework.social.security.SocialAuthenticationFailureHandler;
+import org.springframework.social.security.SocialAuthenticationFilter;
+import org.springframework.social.security.SpringSocialConfigurer;
+
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: BrowserProperties
+ * FileName: LiangzisongSpringSocialConfigurer
  * <p>
  * Description:
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 10:29
+ * @create 2019/8/30 10:22
  */
-public class BrowserProperties {
+public class LiangzisongSpringSocialConfigurer extends SpringSocialConfigurer {
 
-    private String loginPage = "/common-signIn.html";
+    private String filterProcessesUrl;
 
-    private LoginResponseType loginType = LoginResponseType.JSON;
-
-    /*记住我的时间*/
-    private int rememberMeSeconds = 3600;
-
-    /*注册页链接*/
-    private String sigUpUrl;
-
-    public String getLoginPage() {
-        return loginPage;
+    public LiangzisongSpringSocialConfigurer(String filterProcessesUrl){
+        this.filterProcessesUrl = filterProcessesUrl;
     }
 
-    public void setLoginPage(String loginPage) {
-        this.loginPage = loginPage;
-    }
 
-    public LoginResponseType getLoginType() {
-        return loginType;
-    }
-
-    public void setLoginType(LoginResponseType loginType) {
-        this.loginType = loginType;
-    }
-
-    public int getRememberMeSeconds() {
-        return rememberMeSeconds;
-    }
-
-    public void setRememberMeSeconds(int rememberMeSeconds) {
-        this.rememberMeSeconds = rememberMeSeconds;
-    }
-
-    public String getSigUpUrl() {
-        return sigUpUrl;
-    }
-
-    public void setSigUpUrl(String sigUpUrl) {
-        this.sigUpUrl = sigUpUrl;
+    /**
+     * Performs post processing of an object. The default is to delegate to the
+     * {@link ObjectPostProcessor}.
+     *
+     * @param object the Object to post process
+     * @return the possibly modified Object to use
+     */
+    @Override
+    protected <T> T postProcess(T object) {
+        SocialAuthenticationFilter filter = (SocialAuthenticationFilter) super.postProcess(object);
+        filter.setFilterProcessesUrl(filterProcessesUrl);
+        return (T) filter;
     }
 }

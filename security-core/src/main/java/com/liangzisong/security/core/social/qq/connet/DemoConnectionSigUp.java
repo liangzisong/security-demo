@@ -1,4 +1,4 @@
-package com.liangzisong.security.core.properties;//
+package com.liangzisong.security.core.social.qq.connet;//
 //
 //
 //
@@ -37,58 +37,35 @@ package com.liangzisong.security.core.properties;//
 //
 
 
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionSignUp;
+import org.springframework.stereotype.Component;
+
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: BrowserProperties
+ * FileName: DemoConnectionSigUp
  * <p>
- * Description:
+ * Description:  偷偷注册
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 10:29
+ * @create 2019/8/30 15:20
  */
-public class BrowserProperties {
+@Component
+public class DemoConnectionSigUp implements ConnectionSignUp {
 
-    private String loginPage = "/common-signIn.html";
 
-    private LoginResponseType loginType = LoginResponseType.JSON;
-
-    /*记住我的时间*/
-    private int rememberMeSeconds = 3600;
-
-    /*注册页链接*/
-    private String sigUpUrl;
-
-    public String getLoginPage() {
-        return loginPage;
-    }
-
-    public void setLoginPage(String loginPage) {
-        this.loginPage = loginPage;
-    }
-
-    public LoginResponseType getLoginType() {
-        return loginType;
-    }
-
-    public void setLoginType(LoginResponseType loginType) {
-        this.loginType = loginType;
-    }
-
-    public int getRememberMeSeconds() {
-        return rememberMeSeconds;
-    }
-
-    public void setRememberMeSeconds(int rememberMeSeconds) {
-        this.rememberMeSeconds = rememberMeSeconds;
-    }
-
-    public String getSigUpUrl() {
-        return sigUpUrl;
-    }
-
-    public void setSigUpUrl(String sigUpUrl) {
-        this.sigUpUrl = sigUpUrl;
+    /**
+     * Sign up a new user of the application from the connection.
+     *
+     * @param connection the connection
+     * @return the new user id. May be null to indicate that an implicit local user profile could not be created.
+     */
+    @Override
+    public String execute(Connection<?> connection) {
+        //根据社交用户的信息默认创建用户并返回用户的唯一标示
+        //要换成openid
+        return connection.getDisplayName();
     }
 }

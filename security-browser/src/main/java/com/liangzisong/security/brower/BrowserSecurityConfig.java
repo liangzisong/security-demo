@@ -43,19 +43,14 @@ import com.liangzisong.security.core.authentication.AbstractChannelSecurityConfi
 import com.liangzisong.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.liangzisong.security.core.properties.SecurityConstants;
 import com.liangzisong.security.core.properties.SecurityProperties;
-import com.liangzisong.security.core.social.SocialConfig;
-import com.liangzisong.security.core.validate.code.SmsCodeFilter;
-import com.liangzisong.security.core.validate.code.ValidateCodeFilter;
 import com.liangzisong.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -136,13 +131,20 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 //添加userDetailsService
                 .userDetailsService(userDetailsService)
                 //对请求授权
-                .and().authorizeRequests()
+                .and()
+                .authorizeRequests()
                 //当访问下面的登录页面不需要认证
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                        //登录
                         securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*"
+                        //注册页面
+                        securityProperties.getBrowser().getSigUpUrl(),
+                        //验证码
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                        //真正注册逻辑
+                        "/user/regist"
                 )
                 //任何请求 都需要身份认证
                 .permitAll()
