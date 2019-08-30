@@ -1,4 +1,4 @@
-package com.liangzisong.security.core.properties;//
+package com.liangzisong.security.core.social.qq.connet;//
 //
 //
 //
@@ -37,50 +37,31 @@ package com.liangzisong.security.core.properties;//
 //
 
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.liangzisong.security.core.social.qq.api.QQ;
+import org.springframework.social.connect.ApiAdapter;
+import org.springframework.social.connect.support.OAuth2ConnectionFactory;
+import org.springframework.social.oauth2.OAuth2ServiceProvider;
 
 /**
- * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityProperties
+ * Copyright (C), 2002-2019
+ * FileName: QQConnectionFactory
  * <p>
- * Description: security配置
+ * Description: 适配工场(这的泛型是具体的api)
  *
- * @author 如果这段代码非常棒就是梁子松写的
- * 如果这代码挺差劲那么我也不知道是谁写的
+ * @author 梁子松
  * @version 1.0.0
- * @create 2019/8/27 10:28
+ * @create 2019/8/30 7:25
  */
-@ConfigurationProperties(prefix = "liangzisong.security")
-public class SecurityProperties {
+public class QQConnectionFactory extends OAuth2ConnectionFactory<QQ> {
 
-    private BrowserProperties browser = new BrowserProperties();
-
-    /**验证码的配置*/
-    private ValidateCodeProperties validateCodeProperties = new ValidateCodeProperties();
-
-    private SocialProperties socialProperties = new SocialProperties();
-
-    public BrowserProperties getBrowser() {
-        return browser;
-    }
-
-    public void setBrowser(BrowserProperties browser) {
-        this.browser = browser;
-    }
-    public ValidateCodeProperties getValidateCodeProperties() {
-
-        return validateCodeProperties;
-    }
-
-    public void setValidateCodeProperties(ValidateCodeProperties validateCodeProperties) {
-        this.validateCodeProperties = validateCodeProperties;
-    }
-
-    public SocialProperties getSocialProperties() {
-        return socialProperties;
-    }
-
-    public void setSocialProperties(SocialProperties socialProperties) {
-        this.socialProperties = socialProperties;
+    /**
+     * Create a {@link OAuth2ConnectionFactory}.
+     *
+     * @param providerId      the provider id e.g. "facebook"
+     * @param serviceProvider the ServiceProvider model for conducting the authorization flow and obtaining a native service API instance.
+     * @param apiAdapter      the ApiAdapter for mapping the provider-specific service API model to the uniform {@link Connection} interface.
+     */
+    public QQConnectionFactory(String providerId, String appId, String appSecret) {
+        super(providerId, new QQServiceProvider(appId,appSecret), new QQAdapter());
     }
 }

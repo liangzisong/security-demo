@@ -1,4 +1,4 @@
-package com.liangzisong.security.core.properties;//
+package com.liangzisong.security.core.social.qq.connet;//
 //
 //
 //
@@ -37,50 +37,45 @@ package com.liangzisong.security.core.properties;//
 //
 
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.liangzisong.security.core.social.qq.api.QQ;
+import com.liangzisong.security.core.social.qq.api.QQImpi;
+import org.springframework.social.oauth1.AbstractOAuth1ServiceProvider;
+import org.springframework.social.oauth1.OAuth1Operations;
+import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Template;
 
 /**
- * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityProperties
+ * Copyright (C), 2002-2019
+ * FileName: QQServiceProvider
  * <p>
- * Description: security配置
+ * Description:
  *
- * @author 如果这段代码非常棒就是梁子松写的
- * 如果这代码挺差劲那么我也不知道是谁写的
+ * @author 梁子松
  * @version 1.0.0
- * @create 2019/8/27 10:28
+ * @create 2019/8/29 22:03
  */
-@ConfigurationProperties(prefix = "liangzisong.security")
-public class SecurityProperties {
+public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
 
-    private BrowserProperties browser = new BrowserProperties();
+    private String appId = "";
 
-    /**验证码的配置*/
-    private ValidateCodeProperties validateCodeProperties = new ValidateCodeProperties();
+    private static final String URL_AUTHORIZE = "https://graph.qq.com/oauth2.0/authorize";
 
-    private SocialProperties socialProperties = new SocialProperties();
+    private static final String ACCESS_TOKEN_URL = "https://graph.qq.com/oauth2.0/token";
 
-    public BrowserProperties getBrowser() {
-        return browser;
+
+    /**
+     * Create a new {@link OAuth2ServiceProvider}.
+     *
+     * @param oauth2Operations the OAuth2Operations template for conducting the OAuth 2 flow with the provider.
+     */
+    public QQServiceProvider(String appId, String appSecret) {
+        super(new OAuth2Template(appId, appSecret, URL_AUTHORIZE, ACCESS_TOKEN_URL));
     }
 
-    public void setBrowser(BrowserProperties browser) {
-        this.browser = browser;
-    }
-    public ValidateCodeProperties getValidateCodeProperties() {
 
-        return validateCodeProperties;
-    }
-
-    public void setValidateCodeProperties(ValidateCodeProperties validateCodeProperties) {
-        this.validateCodeProperties = validateCodeProperties;
-    }
-
-    public SocialProperties getSocialProperties() {
-        return socialProperties;
-    }
-
-    public void setSocialProperties(SocialProperties socialProperties) {
-        this.socialProperties = socialProperties;
+    @Override
+    public QQ getApi(String accessToken) {
+        return new QQImpi(accessToken, appId);
     }
 }

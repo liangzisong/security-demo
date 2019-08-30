@@ -48,6 +48,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUser;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 /**
@@ -62,21 +65,45 @@ import org.springframework.stereotype.Component;
  * @create 2019/8/27 9:01
  */
 @Component
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
     private Logger logger = LoggerFactory.getLogger(MyUserDetailsService.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /***
+     * 表单登录时用的
+     * @param userName 用户昵称
+     * @return 用户信息
+     * @throws UsernameNotFoundException 用户不存在
+     */
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        logger.info("登录的用户名[]",userName);
+        logger.info("登录的表单用户用户名="+userName);
+        return getSocialUserDetails(userName);
+
+    }
+
+    /***
+     * 第三方登录的时候用的
+     * @param userId 用户的唯一标识（可以是用户的主键id 或者姓名之类的，保证唯一性就行）
+     * @return 用户信息
+     * @throws UsernameNotFoundException 用户不存在
+     */
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        logger.info("登录的用户id="+userId);
+        return getSocialUserDetails(userId);
+    }
+
+    private SocialUserDetails getSocialUserDetails(String userId) {
+
         //根据用户名查询用户信息
 
         //根据查找到的用户信息判断用户信息是否被冻结
-
-        return new User(userName,passwordEncoder.encode("123456"),
+        //因为SocialUser继承自User所以loadUserByUsername也可以返回这个
+        return new SocialUser(userId,passwordEncoder.encode("123456"),
                 true,true,true,true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
