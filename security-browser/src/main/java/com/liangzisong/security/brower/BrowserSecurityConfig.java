@@ -43,6 +43,7 @@ import com.liangzisong.security.core.authentication.AbstractChannelSecurityConfi
 import com.liangzisong.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.liangzisong.security.core.properties.SecurityConstants;
 import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.social.SocialConfig;
 import com.liangzisong.security.core.validate.code.SmsCodeFilter;
 import com.liangzisong.security.core.validate.code.ValidateCodeFilter;
 import com.liangzisong.security.core.validate.code.ValidateCodeSecurityConfig;
@@ -57,6 +58,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -96,6 +98,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    @Autowired
+    private SpringSocialConfigurer liangzisongSocialConfig;
+
     @Bean
     public PasswordEncoder  passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -120,6 +125,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .apply(validateCodeSecurityConfig)
                 //短信
                 .and().apply(smsCodeAuthenticationSecurityConfig)
+                //第三方认证
+                .and().apply(liangzisongSocialConfig)
                 //记住我
                 .and().rememberMe()
                 //设置 persistentTokenRepository 的实现

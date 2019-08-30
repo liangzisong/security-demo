@@ -37,50 +37,27 @@ package com.liangzisong.security.core.properties;//
 //
 
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
- * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityProperties
+ * Copyright (C), 2002-2019
+ * FileName: QQProperties
  * <p>
- * Description: security配置
+ * Description:
  *
- * @author 如果这段代码非常棒就是梁子松写的
- * 如果这代码挺差劲那么我也不知道是谁写的
+ * @author 梁子松
  * @version 1.0.0
- * @create 2019/8/27 10:28
+ * @create 2019/8/30 7:48
  */
-@ConfigurationProperties(prefix = "liangzisong.security")
-public class SecurityProperties {
+public class QQProperties extends SocialProperties {
 
-    private BrowserProperties browser = new BrowserProperties();
+    private String providerId = "qq";
 
-    /**验证码的配置*/
-    private ValidateCodeProperties validateCodeProperties = new ValidateCodeProperties();
-
-    private SocialProperties socialProperties = new SocialProperties();
-
-    public BrowserProperties getBrowser() {
-        return browser;
+    public String getProviderId() {
+        return providerId;
     }
 
-    public void setBrowser(BrowserProperties browser) {
-        this.browser = browser;
-    }
-    public ValidateCodeProperties getValidateCodeProperties() {
-
-        return validateCodeProperties;
-    }
-
-    public void setValidateCodeProperties(ValidateCodeProperties validateCodeProperties) {
-        this.validateCodeProperties = validateCodeProperties;
-    }
-
-    public SocialProperties getSocialProperties() {
-        return socialProperties;
-    }
-
-    public void setSocialProperties(SocialProperties socialProperties) {
-        this.socialProperties = socialProperties;
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 }

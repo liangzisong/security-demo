@@ -1,4 +1,4 @@
-package com.liangzisong.security.core.properties;//
+package com.liangzisong.security.core.social.qq.connet;//
 //
 //
 //
@@ -37,50 +37,60 @@ package com.liangzisong.security.core.properties;//
 //
 
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.liangzisong.security.core.social.qq.api.QQ;
+import com.liangzisong.security.core.social.qq.api.QQUserInfo;
+import org.springframework.social.connect.ApiAdapter;
+import org.springframework.social.connect.ConnectionValues;
+import org.springframework.social.connect.UserProfile;
 
 /**
- * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityProperties
+ * Copyright (C), 2002-2019
+ * FileName: QQAdapter
  * <p>
- * Description: security配置
+ * Description: qq适配器(泛型参数指的是要适配的类型)
  *
- * @author 如果这段代码非常棒就是梁子松写的
- * 如果这代码挺差劲那么我也不知道是谁写的
+ * @author 梁子松
  * @version 1.0.0
- * @create 2019/8/27 10:28
+ * @create 2019/8/30 7:12
  */
-@ConfigurationProperties(prefix = "liangzisong.security")
-public class SecurityProperties {
+public class QQAdapter implements ApiAdapter<QQ> {
 
-    private BrowserProperties browser = new BrowserProperties();
-
-    /**验证码的配置*/
-    private ValidateCodeProperties validateCodeProperties = new ValidateCodeProperties();
-
-    private SocialProperties socialProperties = new SocialProperties();
-
-    public BrowserProperties getBrowser() {
-        return browser;
+    /***
+     * 测试当前的api是否可用(这里先不做测试)
+     * @param api
+     * @return true 可用
+     */
+    @Override
+    public boolean test(QQ api) {
+        return true;
     }
 
-    public void setBrowser(BrowserProperties browser) {
-        this.browser = browser;
+    /**
+     * 实际适配逻辑
+     * @param api
+     * @param values
+     */
+    @Override
+    public void setConnectionValues(QQ api, ConnectionValues values) {
+        //获取用户信息
+        QQUserInfo userInfo = api.getUserInfo();
+        //设置用户昵称
+        values.setDisplayName(userInfo.getNickname());
+        //设置用户头像
+        values.setImageUrl(userInfo.getFigureurl_qq_1());
+        //设置用户个人主页
+        values.setProfileUrl(null);
+        //设置openid
+        values.setProviderUserId(userInfo.getOpenId());
     }
-    public ValidateCodeProperties getValidateCodeProperties() {
 
-        return validateCodeProperties;
+    @Override
+    public UserProfile fetchUserProfile(QQ api) {
+        return null;
     }
 
-    public void setValidateCodeProperties(ValidateCodeProperties validateCodeProperties) {
-        this.validateCodeProperties = validateCodeProperties;
-    }
-
-    public SocialProperties getSocialProperties() {
-        return socialProperties;
-    }
-
-    public void setSocialProperties(SocialProperties socialProperties) {
-        this.socialProperties = socialProperties;
+    @Override
+    public void updateStatus(QQ api, String message) {
+        //do noting
     }
 }
