@@ -42,6 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.config.annotation.EnableSocial;
@@ -69,6 +70,16 @@ import java.security.Security;
  */
 @Configuration
 @EnableSocial
+/**
+ *QQAutoConfig，WeixinAutoConfiguration，SocialConfig 这3个都是 SocialConfigurerAdapter 的子类
+ * ，但是只有 SocialConfig 覆盖了 SocialConfigurerAdapter  的  getUsersConnectionRepository 方法。
+ * 如果SocialConfig 先加载 QQAutoConfig 或 WeixinAutoConfiguration 后加载，
+ * 由于后加载的配置没有重写 getUsersConnectionRepository 方法，
+ * 所以最终会用 SocialConfigurerAdapter 里的默认配置。
+ * 在 SocialConfig 加了 @Order(10) 以后，确保了 SocialConfig 会被最后加载，
+ * 所以 UsersConnectionRepository 会用最后加载的 SocialConfig 里的配置。
+ */
+@Order(10)
 public class SocialConfig extends SocialConfigurerAdapter {
 
     @Autowired
@@ -93,6 +104,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         //设置表的前缀
         jdbcUsersConnectionRepository.setTablePrefix("liangzisong_");
         if(connectionSignUp!=null){
+
             //偷偷注册
             jdbcUsersConnectionRepository.setConnectionSignUp(connectionSignUp);
         }
