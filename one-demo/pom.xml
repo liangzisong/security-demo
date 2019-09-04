@@ -12,9 +12,14 @@
     <artifactId>one-demo</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.liangzisong</groupId>
             <artifactId>security-browser</artifactId>
+            <version>${liangzisong.security.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.liangzisong</groupId>
+            <artifactId>security-app</artifactId>
             <version>${liangzisong.security.version}</version>
         </dependency>
         <dependency>

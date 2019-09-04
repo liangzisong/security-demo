@@ -1,4 +1,4 @@
-package com.liangzisong.security.core;//
+package com.liangzisong.security.brower.session;//
 //
 //
 //
@@ -37,33 +37,29 @@ package com.liangzisong.security.core;//
 //
 
 
-import com.liangzisong.security.core.properties.SecurityProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.SessionInformationExpiredEvent;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
- * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityCoreConfig
+ * Copyright (C), 2002-2019
+ * FileName: LiangzisongExpiredSessionStrategy
  * <p>
- * Description: 使security配置生效
+ * Description:
  *
- * @author 如果这段代码非常棒就是梁子松写的
- * 如果这代码挺差劲那么我也不知道是谁写的
+ * @author 梁子松
  * @version 1.0.0
- * @create 2019/8/27 10:31
+ * @create 2019/8/30 22:14
  */
-@Configuration
-@EnableConfigurationProperties(SecurityProperties.class)
-public class SecurityCoreConfig {
+public class LiangzisongExpiredSessionStrategy implements SessionInformationExpiredStrategy {
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    @Override
+    public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
+        HttpServletResponse response = event.getResponse();
+        response.setContentType("application_json;charset=UTF-8");
+        response.getWriter().write("并发登录啦!");
     }
-
 }

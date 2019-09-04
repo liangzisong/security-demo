@@ -52,6 +52,10 @@ public class BrowserProperties {
 
     private String loginPage = "/common-signIn.html";
 
+    private String signOutUrl;
+
+    private SessionProperties session = new SessionProperties();
+
     private LoginResponseType loginType = LoginResponseType.JSON;
 
     /*记住我的时间*/
@@ -90,5 +94,21 @@ public class BrowserProperties {
 
     public void setSigUpUrl(String sigUpUrl) {
         this.sigUpUrl = sigUpUrl;
+    }
+
+    public SessionProperties getSession() {
+        return session;
+    }
+
+    public void setSession(SessionProperties session) {
+        this.session = session;
+    }
+
+    public String getSignOutUrl() {
+        return signOutUrl;
+    }
+
+    public void setSignOutUrl(String signOutUrl) {
+        this.signOutUrl = signOutUrl;
     }
 }

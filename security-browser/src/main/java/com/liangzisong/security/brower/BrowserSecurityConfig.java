@@ -39,6 +39,8 @@ package com.liangzisong.security.brower;//
 
 import com.liangzisong.security.brower.authentication.ImoocAuthenctiationFailureHandler;
 import com.liangzisong.security.brower.authentication.ImoocAuthenticationSuccessHandler;
+import com.liangzisong.security.brower.logout.ImoocLogoutSuccessHandler;
+import com.liangzisong.security.brower.session.LiangzisongExpiredSessionStrategy;
 import com.liangzisong.security.core.authentication.AbstractChannelSecurityConfig;
 import com.liangzisong.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.liangzisong.security.core.properties.SecurityConstants;
@@ -53,6 +55,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 import org.springframework.stereotype.Component;
 
@@ -96,10 +100,14 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SpringSocialConfigurer liangzisongSocialConfig;
 
-    @Bean
-    public PasswordEncoder  passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private InvalidSessionStrategy invalidSessionStrategy;
+
+    @Autowired
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
+    @Autowired
+    private ImoocLogoutSuccessHandler logoutSuccessHandler;
 
     public PersistentTokenRepository persistentTokenRepository(){
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -130,7 +138,30 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 //添加userDetailsService
                 .userDetailsService(userDetailsService)
+                .and()
+                //session管理
+                .sessionManagement()
+                .invalidSessionStrategy(invalidSessionStrategy)
+                //session超时走的url
+                .invalidSessionUrl(SecurityConstants.DEFAULT_SESSION_INVALID_URL)
+                //session最多并发数量 也就是一个用户最多几台设备同时登录
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                //记录是谁把谁挤下去了  （最后一个登录的用户）
+                .expiredSessionStrategy(sessionInformationExpiredStrategy)
+                //是否允许多台设备登录  ， true不允许
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
                 //对请求授权
+                .and().and()
+                //用户退出的配置
+                .logout()
+                    //退出的路径，自定义
+                    .logoutUrl("/baibai")
+                    //退出成功后的页面自定义
+                    .logoutSuccessUrl("/imooc-logout.html")
+                    //处理退出的信息与logoutSuccessUrl冲突
+                    .logoutSuccessHandler(logoutSuccessHandler)
+                    //可以指定删除cookie的名字
+                    .deleteCookies("JSESSIONID")
                 .and()
                 .authorizeRequests()
                 //当访问下面的登录页面不需要认证
@@ -143,8 +174,13 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getSigUpUrl(),
                         //验证码
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                        //session失效链接
+                        SecurityConstants.DEFAULT_SESSION_INVALID_URL,
+                        //退出页面
+                        securityProperties.getBrowser().getSignOutUrl(),
                         //真正注册逻辑
                         "/user/regist"
+
                 )
                 //任何请求 都需要身份认证
                 .permitAll()

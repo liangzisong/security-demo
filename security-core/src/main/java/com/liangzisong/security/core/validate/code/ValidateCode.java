@@ -38,6 +38,7 @@ package com.liangzisong.security.core.validate.code;//
 
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -51,8 +52,9 @@ import java.time.LocalDateTime;
  * @version 1.0.0
  * @create 2019/8/27 11:42
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable {
 
+    private static final long serialVersionUID = -1807181274061859539L;
     private String code;
 
     private LocalDateTime expireTime;

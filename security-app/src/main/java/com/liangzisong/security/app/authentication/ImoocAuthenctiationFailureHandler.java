@@ -1,4 +1,4 @@
-package com.liangzisong.security.core;//
+package com.liangzisong.security.app.authentication;//
 //
 //
 //
@@ -37,33 +37,55 @@ package com.liangzisong.security.core;//
 //
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liangzisong.security.core.properties.LoginResponseType;
 import com.liangzisong.security.core.properties.SecurityProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import com.liangzisong.security.core.support.SimpleResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityCoreConfig
+ * FileName: ImoocAuthenctiationFailureHandler
  * <p>
- * Description: 使security配置生效
+ * Description: 失败的处理器
  *
  * @author 如果这段代码非常棒就是梁子松写的
  * 如果这代码挺差劲那么我也不知道是谁写的
  * @version 1.0.0
- * @create 2019/8/27 10:31
+ * @create 2019/8/27 14:15
  */
-@Configuration
-@EnableConfigurationProperties(SecurityProperties.class)
-public class SecurityCoreConfig {
+@Component
+public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    Logger logger = LoggerFactory.getLogger(ImoocAuthenctiationFailureHandler.class);
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private SecurityProperties securityProperties;
+
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        logger.info("登录失败");
+        if(LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
+
+        }else {
+            super.onAuthenticationFailure(request, response, exception);
+        }
     }
-
 }

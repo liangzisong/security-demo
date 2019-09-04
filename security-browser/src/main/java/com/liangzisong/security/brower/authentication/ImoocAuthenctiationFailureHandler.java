@@ -38,9 +38,9 @@ package com.liangzisong.security.brower.authentication;//
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.liangzisong.security.brower.support.SimpleResponse;
 import com.liangzisong.security.core.properties.LoginResponseType;
 import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

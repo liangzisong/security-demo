@@ -4,7 +4,6 @@
 package com.liangzisong.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
-//import com.imooc.validator.MyConstraint;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 

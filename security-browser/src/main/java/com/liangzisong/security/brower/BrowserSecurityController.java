@@ -37,9 +37,9 @@ package com.liangzisong.security.brower;//
 //
 
 
-import com.liangzisong.security.brower.support.SimpleResponse;
 import com.liangzisong.security.brower.support.SocialUserInfo;
 import com.liangzisong.security.core.properties.SecurityProperties;
+import com.liangzisong.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,5 +119,20 @@ public class BrowserSecurityController {
         //返回
         return userInfo;
     }
+
+
+    /***
+     * session失效链接
+     * @return
+     */
+    @GetMapping("/session/invalid")
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public SimpleResponse sessionInvalid(){
+
+        String message = "session失效了";
+        return new SimpleResponse(message);
+
+    }
+
 
 }

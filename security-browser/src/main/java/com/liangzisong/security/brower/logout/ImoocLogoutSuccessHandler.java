@@ -1,4 +1,4 @@
-package com.liangzisong.security.core;//
+package com.liangzisong.security.brower.logout;//
 //
 //
 //
@@ -37,33 +37,51 @@ package com.liangzisong.security.core;//
 //
 
 
-import com.liangzisong.security.core.properties.SecurityProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liangzisong.security.core.support.SimpleResponse;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.beans.SimpleBeanInfo;
+import java.io.IOException;
 
 /**
- * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityCoreConfig
- * <p>
- * Description: 使security配置生效
+ * FileName: ImoocLogoutSuccessHandler
+ * Description: 退出
  *
- * @author 如果这段代码非常棒就是梁子松写的
- * 如果这代码挺差劲那么我也不知道是谁写的
- * @version 1.0.0
- * @create 2019/8/27 10:31
+ * @author 梁子松
+ * @version 10.0
+ * @create 2019/9/3 21:54
  */
-@Configuration
-@EnableConfigurationProperties(SecurityProperties.class)
-public class SecurityCoreConfig {
+public class ImoocLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    private String logoutUrl;
+
+    private Logger logger = LoggerFactory.getLogger(ImoocLogoutSuccessHandler.class);
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public ImoocLogoutSuccessHandler(String logoutUrl) {
+        this.logoutUrl = logoutUrl;
     }
 
+    @Override
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        logger.info("退出成功");
+
+        //如果没有配置退出页面 返回json
+        if(StringUtils.isBlank(logoutUrl)){
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse("退出成功")));
+        }else {
+            //配置了，直接返回配置的页面
+            response.sendRedirect(logoutUrl);
+        }
+    }
 }

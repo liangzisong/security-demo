@@ -1,4 +1,4 @@
-package com.liangzisong.security.core;//
+package com.liangzisong.security.app;//
 //
 //
 //
@@ -37,33 +37,20 @@ package com.liangzisong.security.core;//
 //
 
 
-import com.liangzisong.security.core.properties.SecurityProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.stereotype.Component;
 
 /**
- * Copyright (C), 2002-2019, 山东沃然网络科技有限公司
- * FileName: SecurityCoreConfig
- * <p>
- * Description: 使security配置生效
+ * FileName: ImoocAuthorizationServerConfig
+ * Description:
  *
- * @author 如果这段代码非常棒就是梁子松写的
- * 如果这代码挺差劲那么我也不知道是谁写的
+ * @author 梁子松
  * @version 1.0.0
- * @create 2019/8/27 10:31
+ * @create 2019/9/4 21:32
  */
-@Configuration
-@EnableConfigurationProperties(SecurityProperties.class)
-public class SecurityCoreConfig {
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+@Component
+@EnableResourceServer
+public class ImoocResourceServerConfig {
 
 }
